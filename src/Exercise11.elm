@@ -1,6 +1,6 @@
 module Exercise11 exposing (decoder)
 
-import Json.Decode exposing (Decoder, fail)
+import Json.Decode exposing (Decoder, fail, field, int, list)
 
 
 {- Every once in a while, you'll have to deal with oddly structured data. Let's
@@ -29,9 +29,10 @@ import Json.Decode exposing (Decoder, fail)
 
 decoder : Decoder (List Int)
 decoder =
-    fail "Implement me!"
+    Json.Decode.oneOf [ (Json.Decode.map (\(i) -> [i]) decodeInt), (field "number" (list int)) ]
 
-
+decodeInt : Decoder Int
+decodeInt = field "number" int
 
 {- Once you think you're done, run the tests for this exercise from the root of
    the project:

@@ -1,11 +1,12 @@
 module Exercise06 exposing (decoder, Person)
 
-import Json.Decode exposing (fail, Decoder)
+import Json.Decode exposing (string, field, int, Decoder)
 
 
 {- Now, onto the "real" stuff: decoding a JS object into an Elm record.
 
-   The record we'll be working with, had been given a type alias. This means that we can refer to the specific _shape_ of a record (which includes the names and types of the fields) by a name.
+   The record we'll be working with, had been given a type alias.
+    This means that we can refer to the specific _shape_ of a record (which includes the names and types of the fields) by a name.
 
    However, a type alias for records (and _only_ for records) does just one
    more thing: it creates a magical constructor function. In the case of
@@ -48,7 +49,7 @@ type alias Person =
 
 decoder : Decoder Person
 decoder =
-    fail "Implement me!"
+    Json.Decode.map2 Person (field "name" string) (field "age" int)
 
 
 

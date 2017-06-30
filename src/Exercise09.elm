@@ -1,6 +1,6 @@
 module Exercise09 exposing (decoder, Fruit(..))
 
-import Json.Decode exposing (Decoder, fail)
+import Json.Decode exposing (Decoder, fail, string)
 
 
 {- Decoding a union type is something that comes up regularly. And now, young
@@ -36,13 +36,16 @@ type Fruit
 
 decoder : Decoder Fruit
 decoder =
-    fail "Nevermind me."
+    string |> Json.Decode.andThen fruitDecoder
 
 
 fruitDecoder : String -> Decoder Fruit
 fruitDecoder fruitAsString =
-    fail "Unknown fruit."
-
+    case fruitAsString of
+        "apple" -> Json.Decode.succeed Apple
+        "orange" -> Json.Decode.succeed Orange
+        "banana" -> Json.Decode.succeed Banana
+        _ -> fail "No such fruit"
 
 
 {- Once you think you're done, run the tests for this exercise from the root of

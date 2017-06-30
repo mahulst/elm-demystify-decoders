@@ -1,6 +1,6 @@
 module Exercise07 exposing (decoder)
 
-import Json.Decode exposing (Decoder, fail)
+import Json.Decode exposing (Decoder, string)
 
 
 {- This one is special.
@@ -18,9 +18,7 @@ import Json.Decode exposing (Decoder, fail)
 
 decoder : Decoder String
 decoder =
-    fail "I'd rather succeed, really."
-
-
+    Json.Decode.succeed "sure."
 
 {- Once you think you're done, run the tests for this exercise from the root of
    the project:
